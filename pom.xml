@@ -23,12 +23,12 @@
         <module>distribute-lock-examples/db-springboot-starter-example</module>
     </modules>
 
-    <url>https://github.com/用户名/验证值</url>
+    <url>https://github.com/EvanMi/local-first-distribute-lock</url>
 
     <scm>
-        <connection>scm:git:https://github.com/用户名/验证码.git</connection>
-        <developerConnection>scm:git:https://github.com/用户名.git</developerConnection>
-        <url>https://github.com/用户名/验证码</url>
+        <connection>scm:https://github.com/EvanMi/local-first-distribute-lock.git</connection>
+        <developerConnection>scm:git:https://github.com/EvanMi/local-first-distribute-lock.git</developerConnection>
+        <url>https://github.com/EvanMi/local-first-distribute-lock</url>
     </scm>
 
     <developers>

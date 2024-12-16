@@ -11,6 +11,30 @@
 
     <artifactId>distribute-lock-db</artifactId>
 
+    <description>distribute-lock-db</description>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <url>https://github.com/EvanMi/local-first-distribute-lock</url>
+
+    <scm>
+        <connection>scm:https://github.com/EvanMi/local-first-distribute-lock.git</connection>
+        <developerConnection>scm:git:https://github.com/EvanMi/local-first-distribute-lock.git</developerConnection>
+        <url>https://github.com/EvanMi/local-first-distribute-lock</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>evanmi</name>
+            <email>1157015566@qq.com</email>
+        </developer>
+    </developers>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -26,6 +50,7 @@
         <dependency>
             <groupId>org.jctools</groupId>
             <artifactId>jctools-core</artifactId>
+            <version>4.0.5</version>
         </dependency>
     </dependencies>
 

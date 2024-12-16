@@ -23,21 +23,6 @@
         <module>distribute-lock-examples/db-springboot-starter-example</module>
     </modules>
 
-    <url>https://github.com/EvanMi/local-first-distribute-lock</url>
-
-    <scm>
-        <connection>scm:https://github.com/EvanMi/local-first-distribute-lock.git</connection>
-        <developerConnection>scm:git:https://github.com/EvanMi/local-first-distribute-lock.git</developerConnection>
-        <url>https://github.com/EvanMi/local-first-distribute-lock</url>
-    </scm>
-
-    <developers>
-        <developer>
-            <name>evanmi</name>
-            <email>1157015566@qq.com</email>
-        </developer>
-    </developers>
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -103,6 +88,18 @@
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>

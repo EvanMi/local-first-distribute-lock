@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.github.evanmi.distribute.lock.db.springboot.starter.boot.DistributeLockDbAutoConfiguration

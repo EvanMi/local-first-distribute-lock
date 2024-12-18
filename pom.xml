@@ -6,8 +6,35 @@
 
     <groupId>io.github.evanmi</groupId>
     <artifactId>local-first-distribute-lock</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>pom</packaging>
+
+    <description>local-first-distribute-lock</description>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <url>https://github.com/EvanMi/local-first-distribute-lock</url>
+
+    <scm>
+        <connection>scm:https://github.com/EvanMi/local-first-distribute-lock.git</connection>
+        <developerConnection>scm:git:https://github.com/EvanMi/local-first-distribute-lock.git</developerConnection>
+        <url>https://github.com/EvanMi/local-first-distribute-lock</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>evanmi</name>
+            <email>1157015566@qq.com</email>
+        </developer>
+    </developers>
+
+
     <modules>
         <module>distribute-lock-api</module>
         <module>distribute-lock-core</module>

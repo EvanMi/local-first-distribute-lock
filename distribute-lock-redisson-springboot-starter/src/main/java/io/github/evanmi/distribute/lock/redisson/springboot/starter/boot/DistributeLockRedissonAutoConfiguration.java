@@ -27,7 +27,7 @@ public class DistributeLockRedissonAutoConfiguration {
     public RedissonLockFactory redissonLockFactory(DistributeLockRedissonConfig distributeLockRedissonConfig,
                                                    RedissonClientListProvider redissonClientListProvider) {
         RedissonLockConfig config = new RedissonLockConfig();
-        config.setLockPrefix(StringUtils.isBlank(distributeLockRedissonConfig.getLockPrefix()) ? UUID.randomUUID().toString()
+        config.setLockPrefix(StringUtils.isBlank(distributeLockRedissonConfig.getLockPrefix()) ? "yumi-lock"
                 : distributeLockRedissonConfig.getLockPrefix());
         config.setSpin(Objects.requireNonNullElse(distributeLockRedissonConfig.getSpin(), Boolean.FALSE));
         RedissonLockFactory redissonLockFactory = new RedissonLockFactory(config, redissonClientListProvider);

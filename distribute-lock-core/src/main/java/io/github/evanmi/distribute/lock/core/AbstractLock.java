@@ -46,19 +46,17 @@ public abstract class AbstractLock<T> {
                     return Optional.empty();
                 }
                 boolean acquire = distributeLock.acquire(nanoTime);
-                try {
-                    if (acquire) {
+                if (acquire) {
+                    try {
                         return Optional.ofNullable(task.call());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        distributeLock.release();
                     }
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("distribute lock timeout");
-                    }
-                } finally {
-                    distributeLock.release();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                return Optional.empty();
+                throw new RuntimeException(e);
             } finally {
                 lock.unlock();
             }

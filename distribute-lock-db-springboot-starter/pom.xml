@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.evanmi</groupId>
         <artifactId>local-first-distribute-lock</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </parent>
 
     <artifactId>distribute-lock-db-springboot-starter</artifactId>
@@ -52,12 +52,12 @@
         <dependency>
             <groupId>io.github.evanmi</groupId>
             <artifactId>distribute-lock-core</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>io.github.evanmi</groupId>
             <artifactId>distribute-lock-db</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
     </dependencies>
 

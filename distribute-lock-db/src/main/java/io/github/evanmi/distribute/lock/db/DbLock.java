@@ -82,17 +82,11 @@ public class DbLock extends AutoRenewLock implements Lock {
                             preparedStatement.setInt(2, localReentrantCount + 1);
                             preparedStatement.setString(3, this.path);
                             preparedStatement.setString(4, threadId);
-                            connection.setAutoCommit(false);
                             int rowsUpdated = preparedStatement.executeUpdate();
                             if (rowsUpdated > 0) {
-                                try {
-                                    scheduleExpirationRenewal(getThreadId(), this.path);
-                                    connection.commit();
-                                    result = true;
-                                    break;
-                                } catch (Exception e) {
-                                    connection.rollback();
-                                }
+                                scheduleExpirationRenewal(getThreadId(), this.path);
+                                result = true;
+                                break;
                             }
                             throw new IllegalStateException("lock reenter failed");
                         }
@@ -127,17 +121,11 @@ public class DbLock extends AutoRenewLock implements Lock {
                         preparedStatement.setString(3, threadId);
                         preparedStatement.setLong(4, SystemClock.now() + this.lockLeaseMills);
                         preparedStatement.setInt(5, 1);
-                        connection.setAutoCommit(false);
                         int rowInserted = preparedStatement.executeUpdate();
                         if (rowInserted > 0) {
-                            try {
-                                scheduleExpirationRenewal(getThreadId(), this.path);
-                                connection.commit();
-                                result = true;
-                                break;
-                            } catch (Exception e) {
-                                connection.rollback();
-                            }
+                            scheduleExpirationRenewal(getThreadId(), this.path);
+                            result = true;
+                            break;
                         }
 
                         try {

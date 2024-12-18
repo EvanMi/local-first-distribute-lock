@@ -25,7 +25,8 @@ public class DistributeLockDbAutoConfiguration {
     public DbLockFactory redissonLockFactory(DistributeLockDbConfig distributeLockDbConfig,
                                              DataSourceListProvider redissonClientListProvider) {
         DbLockConfig config = new DbLockConfig();
-        config.setLockPrefix(distributeLockDbConfig.getLockPrefix());
+        config.setLockPrefix(StringUtils.isBlank(distributeLockDbConfig.getLockPrefix()) ? "yumi-lock"
+                : distributeLockDbConfig.getLockPrefix());
         config.setLockLeaseMills(Objects.requireNonNullElse(distributeLockDbConfig.getLockLeaseMills(), 30000L));
         config.setTableName(StringUtils.isBlank(distributeLockDbConfig.getTableName()) ? "t_distribute_lock"
                 : distributeLockDbConfig.getTableName());

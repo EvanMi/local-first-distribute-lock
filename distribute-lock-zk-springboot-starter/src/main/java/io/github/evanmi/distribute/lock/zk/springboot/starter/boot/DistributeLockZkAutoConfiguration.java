@@ -27,7 +27,7 @@ public class DistributeLockZkAutoConfiguration {
     public ZkLockFactory zkLockFactory(DistributeLockZkConfig distributeLockZkConfig,
                                        CuratorFrameworkListProvider curatorFrameworkListProvider) {
         LockPrefixConfig lockPrefixConfig = new LockPrefixConfig();
-        lockPrefixConfig.setLockPrefix(StringUtils.isBlank(distributeLockZkConfig.getLockPrefix()) ? "/" + UUID.randomUUID()
+        lockPrefixConfig.setLockPrefix(StringUtils.isBlank(distributeLockZkConfig.getLockPrefix()) ? "/" + "yumi-lock"
                 : distributeLockZkConfig.getLockPrefix());
         ZkLockFactory zkLockFactory = new ZkLockFactory(lockPrefixConfig, curatorFrameworkListProvider);
         return zkLockFactory;

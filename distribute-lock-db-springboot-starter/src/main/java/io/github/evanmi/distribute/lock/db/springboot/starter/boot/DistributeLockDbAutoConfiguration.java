@@ -34,7 +34,7 @@ public class DistributeLockDbAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "localFirstDbLock")
+    @ConditionalOnMissingBean(name = "localFirstDbLock", value = NormalLock.class)
     public NormalLock localFirstDbLock(DistributeLockDbConfig distributeLockDbConfig,
                                        DbLockFactory dbLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();

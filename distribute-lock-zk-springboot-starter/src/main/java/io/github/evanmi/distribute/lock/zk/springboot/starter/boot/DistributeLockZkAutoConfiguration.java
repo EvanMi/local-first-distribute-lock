@@ -34,7 +34,7 @@ public class DistributeLockZkAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "localFirstZkLock")
+    @ConditionalOnMissingBean(name = "localFirstZkLock", value = NormalLock.class)
     public NormalLock localFirstZkLock(DistributeLockZkConfig distributeLockZkConfig,
                                        ZkLockFactory zkLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
@@ -44,7 +44,7 @@ public class DistributeLockZkAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "localFirstZkReadWriteLock")
+    @ConditionalOnMissingBean(name = "localFirstZkReadWriteLock", value = ReadWriteLock.class)
     public ReadWriteLock localFirstZkReadWriteLock(DistributeLockZkConfig distributeLockZkConfig,
                                                    ZkLockFactory zkLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();

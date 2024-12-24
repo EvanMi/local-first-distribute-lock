@@ -35,7 +35,7 @@ public class DistributeLockRedissonAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "localFirstRedissonLock")
+    @ConditionalOnMissingBean(name = "localFirstRedissonLock", value = NormalLock.class)
     public NormalLock localFirstRedissonLock(DistributeLockRedissonConfig distributeLockRedissonConfig,
                                              RedissonLockFactory redissonLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
@@ -45,7 +45,7 @@ public class DistributeLockRedissonAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "localFirstRedissonReadWriteLock")
+    @ConditionalOnMissingBean(name = "localFirstRedissonReadWriteLock", value = ReadWriteLock.class)
     public ReadWriteLock localFirstRedissonReadWriteLock(DistributeLockRedissonConfig distributeLockRedissonConfig,
                                                    RedissonLockFactory redissonLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();

@@ -1,10 +1,12 @@
-package io.github.evanmi.distribute.lock.db.renew;
+package io.github.evanmi.distribute.lock.api.renew;
 
 
-import io.github.evanmi.distribute.lock.db.util.timer.ExpirationEntry;
-import io.github.evanmi.distribute.lock.db.util.timer.HashedWheelTimer;
-import io.github.evanmi.distribute.lock.db.util.timer.Timeout;
+import io.github.evanmi.distribute.lock.api.util.timer.ExpirationEntry;
+import io.github.evanmi.distribute.lock.api.util.timer.HashedWheelTimer;
+import io.github.evanmi.distribute.lock.api.util.timer.Timeout;
 
+import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -13,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class AutoRenewLock {
     private static final ConcurrentMap<String, ExpirationEntry> EXPIRATION_RENEWAL_MAP = new ConcurrentHashMap<>();
     private final HashedWheelTimer timer = new HashedWheelTimer(100, TimeUnit.MILLISECONDS, 1024);
-
+    private final ThreadLocal<String> threadId = new ThreadLocal<>();
     protected final Long lockLeaseMills;
 
     protected AutoRenewLock(Long lockLeaseMills) {
@@ -83,8 +85,6 @@ public abstract class AutoRenewLock {
                 }
                 if (res) {
                     renewExpiration(lockPath);
-                } else {
-                    cancelExpirationRenewal(null, null);
                 }
             });
         }, lockLeaseMills / 3, TimeUnit.MILLISECONDS);
@@ -96,5 +96,12 @@ public abstract class AutoRenewLock {
 
     private String getEntryName(String lockPath) {
         return lockPath;
+    }
+
+    protected String getThreadId() {
+        if (Objects.isNull(threadId.get())) {
+            threadId.set(UUID.randomUUID().toString());
+        }
+        return threadId.get();
     }
 }

@@ -8,6 +8,7 @@ public class DistributeLockRedissonConfig {
     private Long duration;
     private Long maxSize;
     private Boolean isSpin;
+    private Long lockLeaseMills;
 
     public Boolean getSpin() {
         return isSpin;
@@ -39,5 +40,13 @@ public class DistributeLockRedissonConfig {
 
     public void setMaxSize(Long maxSize) {
         this.maxSize = maxSize;
+    }
+
+    public Long getLockLeaseMills() {
+        return lockLeaseMills;
+    }
+
+    public void setLockLeaseMills(Long lockLeaseMills) {
+        this.lockLeaseMills = lockLeaseMills;
     }
 }

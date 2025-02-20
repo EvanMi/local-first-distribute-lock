@@ -26,4 +26,9 @@ public class ZkLockFactory extends AbstractClientLockFactory<CuratorFramework, L
     public ReadWriteLock createReadWriteLock(String lockPath) {
         return new ZkReadWriteLock(lockPath, getClient(lockPath));
     }
+
+    @Override
+    public Lock createSimpleLock(String lockPath) {
+        return new ZkSimpleLock(lockPath, getClient(lockPath));
+    }
 }

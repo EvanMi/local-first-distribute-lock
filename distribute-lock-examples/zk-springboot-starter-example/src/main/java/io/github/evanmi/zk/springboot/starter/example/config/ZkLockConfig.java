@@ -19,7 +19,7 @@ public class ZkLockConfig {
         CuratorFrameworkListProvider curatorFrameworkListProvider = new CuratorFrameworkListProvider() {
             @Override
             public List<CuratorFramework> initClients() {
-                String zkAddress ="testpubli.zk.com:2181;testpubli.zk.com:2181";
+                String zkAddress ="testpubli.zk.jddb.com:2181;testpubli.zk.jddb.com:2181";
                 String username = "admin;admin";
                 String password = "admin888;admin888";
 

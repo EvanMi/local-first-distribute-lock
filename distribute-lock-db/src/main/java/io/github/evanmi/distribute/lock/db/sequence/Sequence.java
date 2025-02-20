@@ -29,10 +29,10 @@ public class Sequence {
     public Sequence(InetAddress inetAddress) {
         this.inetAddress = inetAddress;
         this.datacenterId = getDatacenterId(maxDatacenterId);
-        this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);
+        this.workerId = getWorkerId(datacenterId, maxWorkerId);
     }
 
-    protected long getMaxWorkerId(long datacenterId, long maxWorkerId) {
+    protected long getWorkerId(long datacenterId, long maxWorkerId) {
         StringBuilder mpid = new StringBuilder();
         mpid.append(datacenterId);
         String name = ManagementFactory.getRuntimeMXBean().getName();

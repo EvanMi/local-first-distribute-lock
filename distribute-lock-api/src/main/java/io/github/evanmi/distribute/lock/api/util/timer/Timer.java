@@ -1,4 +1,4 @@
-package io.github.evanmi.distribute.lock.db.util.timer;
+package io.github.evanmi.distribute.lock.api.util.timer;
 
 import java.util.Set;
 import java.util.concurrent.TimeUnit;

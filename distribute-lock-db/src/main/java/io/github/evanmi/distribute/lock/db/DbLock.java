@@ -1,7 +1,7 @@
 package io.github.evanmi.distribute.lock.db;
 
 import io.github.evanmi.distribute.lock.api.Lock;
-import io.github.evanmi.distribute.lock.db.renew.AutoRenewLock;
+import io.github.evanmi.distribute.lock.api.renew.AutoRenewLock;
 import io.github.evanmi.distribute.lock.db.sequence.Sequence;
 import io.github.evanmi.distribute.lock.db.util.NetUtils;
 import io.github.evanmi.distribute.lock.db.util.SystemClock;
@@ -21,8 +21,6 @@ import java.util.concurrent.CompletionStage;
 public class DbLock extends AutoRenewLock implements Lock {
     private final DataSource dataSource;
     private final String path;
-    private final ThreadLocal<String> threadId = new ThreadLocal<>();
-
     private final String querySql;
     private final String updateSql;
     private final String deleteSql;
@@ -181,13 +179,6 @@ public class DbLock extends AutoRenewLock implements Lock {
                 }
             }
         }
-    }
-
-    private String getThreadId() {
-        if (Objects.isNull(threadId.get())) {
-            threadId.set(UUID.randomUUID().toString());
-        }
-        return threadId.get();
     }
 
     @Override

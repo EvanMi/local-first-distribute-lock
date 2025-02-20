@@ -3,6 +3,7 @@ package io.github.evanmi.zk.springboot.starter.example.service;
 
 import io.github.evanmi.distribute.lock.core.NormalLock;
 import io.github.evanmi.distribute.lock.core.ReadWriteLock;
+import io.github.evanmi.distribute.lock.core.SimpleLock;
 import jakarta.annotation.PreDestroy;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
@@ -28,6 +29,9 @@ public class LockTestService {
     @Resource
     private NormalLock localFirstZkLock;
 
+    @Resource
+    private SimpleLock localFirstZkSimpleLock;
+
     @PreDestroy
     public void destroy() {
         executorService.shutdown();
@@ -43,6 +47,25 @@ public class LockTestService {
         }
     }
 
+    public void testSimpleLock() {
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(5);
+        for (int i = 0; i < 5; i++) {
+            executorService.execute(() -> {
+                try {
+                    cyclicBarrier.await();
+                    Optional<Long> currentMills = localFirstZkSimpleLock.tryLockSubmit("simple-lock/key",  () -> {
+                        logger.info("lock-doing");
+                        return System.currentTimeMillis();
+                    });
+                    if (currentMills.isEmpty()) {
+                        logger.info("currentMills: {}", currentMills);
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+    }
 
     public void testReadWriteLock() {
         CyclicBarrier cyclicBarrier = new CyclicBarrier(10);

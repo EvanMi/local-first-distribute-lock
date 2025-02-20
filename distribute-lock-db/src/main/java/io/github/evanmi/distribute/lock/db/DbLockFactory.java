@@ -23,6 +23,12 @@ public class DbLockFactory extends AbstractClientLockFactory<DataSource, DbLockC
     }
 
     @Override
+    public Lock createSimpleLock(String lockPath) {
+        return new DbSimpleLock(config.getLockLeaseMills(), lockPath,
+                config.getTableName(), getClient(lockPath));
+    }
+
+    @Override
     public ReadWriteLock createReadWriteLock(String lockPath) {
         throw new IllegalStateException("readWriteLock not supported");
     }

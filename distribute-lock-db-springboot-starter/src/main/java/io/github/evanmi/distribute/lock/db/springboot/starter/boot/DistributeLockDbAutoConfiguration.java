@@ -3,6 +3,7 @@ package io.github.evanmi.distribute.lock.db.springboot.starter.boot;
 import io.github.evanmi.distribute.lock.api.util.StringUtils;
 import io.github.evanmi.distribute.lock.core.LocalLockCacheConfig;
 import io.github.evanmi.distribute.lock.core.NormalLock;
+import io.github.evanmi.distribute.lock.core.SimpleLock;
 import io.github.evanmi.distribute.lock.db.DataSourceListProvider;
 import io.github.evanmi.distribute.lock.db.DbLockConfig;
 import io.github.evanmi.distribute.lock.db.DbLockFactory;
@@ -41,5 +42,15 @@ public class DistributeLockDbAutoConfiguration {
         localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockDbConfig.getDuration(), 120L));
         localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockDbConfig.getMaxSize(), 1000L));
         return new NormalLock(localLockCacheConfig, dbLockFactory);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "localFirstDbSimpleLock", value = SimpleLock.class)
+    public SimpleLock localFirstRedissonSimpleLock(DistributeLockDbConfig distributeLockDbConfig,
+                                                   DbLockFactory dbLockFactory) {
+        LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
+        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockDbConfig.getDuration(), 120L));
+        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockDbConfig.getMaxSize(), 1000L));
+        return new SimpleLock(localLockCacheConfig, dbLockFactory);
     }
 }

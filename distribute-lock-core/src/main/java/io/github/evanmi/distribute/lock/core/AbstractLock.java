@@ -41,8 +41,8 @@ public abstract class AbstractLock<T> {
             try {
                 // 获取锁
                 long distributeStartNano = System.nanoTime();
-                long nanoTime = timeUnit.toNanos(time) - (distributeStartNano - localStartNano);
-                if (nanoTime <= 0) {
+                long nanoTime = time <= 0 ? 0 : timeUnit.toNanos(time) - (distributeStartNano - localStartNano);
+                if (nanoTime < 0) {
                     return Optional.empty();
                 }
                 boolean acquire = distributeLock.acquire(nanoTime);

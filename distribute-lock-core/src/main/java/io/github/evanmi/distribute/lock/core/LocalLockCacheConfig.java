@@ -2,7 +2,13 @@ package io.github.evanmi.distribute.lock.core;
 
 
 public class LocalLockCacheConfig {
+    /**
+     * Local cache duration in SECOND
+     */
     private Long duration;
+    /**
+     * Max Local cache size
+     */
     private Long maximumSize;
 
     public Long getDuration() {

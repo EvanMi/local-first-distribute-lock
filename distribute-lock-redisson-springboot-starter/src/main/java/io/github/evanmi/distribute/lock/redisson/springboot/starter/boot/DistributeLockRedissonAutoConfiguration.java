@@ -4,6 +4,7 @@ import io.github.evanmi.distribute.lock.api.util.StringUtils;
 import io.github.evanmi.distribute.lock.core.LocalLockCacheConfig;
 import io.github.evanmi.distribute.lock.core.NormalLock;
 import io.github.evanmi.distribute.lock.core.ReadWriteLock;
+import io.github.evanmi.distribute.lock.core.SimpleLock;
 import io.github.evanmi.distribute.lock.redisson.RedissonClientListProvider;
 import io.github.evanmi.distribute.lock.redisson.RedissonLockConfig;
 import io.github.evanmi.distribute.lock.redisson.RedissonLockFactory;
@@ -30,6 +31,7 @@ public class DistributeLockRedissonAutoConfiguration {
         config.setLockPrefix(StringUtils.isBlank(distributeLockRedissonConfig.getLockPrefix()) ? "yumi-lock"
                 : distributeLockRedissonConfig.getLockPrefix());
         config.setSpin(Objects.requireNonNullElse(distributeLockRedissonConfig.getSpin(), Boolean.FALSE));
+        config.setLockLeaseMills(Objects.requireNonNullElse(distributeLockRedissonConfig.getLockLeaseMills(), 30000L));
         RedissonLockFactory redissonLockFactory = new RedissonLockFactory(config, redissonClientListProvider);
         return redissonLockFactory;
     }
@@ -52,5 +54,16 @@ public class DistributeLockRedissonAutoConfiguration {
         localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockRedissonConfig.getDuration(), 120L));
         localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockRedissonConfig.getMaxSize(), 1000L));
         return new ReadWriteLock(localLockCacheConfig, redissonLockFactory);
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean(name = "localFirstRedissonSimpleLock", value = SimpleLock.class)
+    public SimpleLock localFirstRedissonSimpleLock(DistributeLockRedissonConfig distributeLockRedissonConfig,
+                                                      RedissonLockFactory redissonLockFactory) {
+        LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
+        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockRedissonConfig.getDuration(), 120L));
+        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockRedissonConfig.getMaxSize(), 1000L));
+        return new SimpleLock(localLockCacheConfig, redissonLockFactory);
     }
 }

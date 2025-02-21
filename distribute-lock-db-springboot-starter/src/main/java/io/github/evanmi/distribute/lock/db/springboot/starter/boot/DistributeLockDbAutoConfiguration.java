@@ -28,7 +28,7 @@ public class DistributeLockDbAutoConfiguration {
         DbLockConfig config = new DbLockConfig();
         config.setLockPrefix(StringUtils.isBlank(distributeLockDbConfig.getLockPrefix()) ? "yumi-lock"
                 : distributeLockDbConfig.getLockPrefix());
-        config.setLockLeaseMills(Objects.requireNonNullElse(distributeLockDbConfig.getLockLeaseMills(), 30000L));
+        config.setLockLeaseMills(distributeLockDbConfig.getLockLeaseMills() == null ? 30000L : distributeLockDbConfig.getLockLeaseMills());
         config.setTableName(StringUtils.isBlank(distributeLockDbConfig.getTableName()) ? "t_distribute_lock"
                 : distributeLockDbConfig.getTableName());
         return new DbLockFactory(config, redissonClientListProvider);
@@ -39,8 +39,8 @@ public class DistributeLockDbAutoConfiguration {
     public NormalLock localFirstDbLock(DistributeLockDbConfig distributeLockDbConfig,
                                        DbLockFactory dbLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
-        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockDbConfig.getDuration(), 120L));
-        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockDbConfig.getMaxSize(), 1000L));
+        localLockCacheConfig.setDuration(distributeLockDbConfig.getDuration() == null ? 120L : distributeLockDbConfig.getDuration());
+        localLockCacheConfig.setMaximumSize(distributeLockDbConfig.getMaxSize() == null ? 1000L : distributeLockDbConfig.getMaxSize());
         return new NormalLock(localLockCacheConfig, dbLockFactory);
     }
 
@@ -49,8 +49,8 @@ public class DistributeLockDbAutoConfiguration {
     public SimpleLock localFirstRedissonSimpleLock(DistributeLockDbConfig distributeLockDbConfig,
                                                    DbLockFactory dbLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
-        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockDbConfig.getDuration(), 120L));
-        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockDbConfig.getMaxSize(), 1000L));
+        localLockCacheConfig.setDuration(distributeLockDbConfig.getDuration() == null ? 120L : distributeLockDbConfig.getDuration());
+        localLockCacheConfig.setMaximumSize(distributeLockDbConfig.getMaxSize() == null ? 1000L : distributeLockDbConfig.getMaxSize());
         return new SimpleLock(localLockCacheConfig, dbLockFactory);
     }
 }

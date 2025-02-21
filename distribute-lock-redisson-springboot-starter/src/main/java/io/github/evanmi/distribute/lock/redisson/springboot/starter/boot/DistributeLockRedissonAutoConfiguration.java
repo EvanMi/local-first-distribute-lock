@@ -30,8 +30,8 @@ public class DistributeLockRedissonAutoConfiguration {
         RedissonLockConfig config = new RedissonLockConfig();
         config.setLockPrefix(StringUtils.isBlank(distributeLockRedissonConfig.getLockPrefix()) ? "yumi-lock"
                 : distributeLockRedissonConfig.getLockPrefix());
-        config.setSpin(Objects.requireNonNullElse(distributeLockRedissonConfig.getSpin(), Boolean.FALSE));
-        config.setLockLeaseMills(Objects.requireNonNullElse(distributeLockRedissonConfig.getLockLeaseMills(), 30000L));
+        config.setSpin(distributeLockRedissonConfig.getSpin() == null ? Boolean.FALSE : distributeLockRedissonConfig.getSpin());
+        config.setLockLeaseMills(distributeLockRedissonConfig.getLockLeaseMills() == null ? 30000L : distributeLockRedissonConfig.getLockLeaseMills());
         RedissonLockFactory redissonLockFactory = new RedissonLockFactory(config, redissonClientListProvider);
         return redissonLockFactory;
     }
@@ -41,8 +41,8 @@ public class DistributeLockRedissonAutoConfiguration {
     public NormalLock localFirstRedissonLock(DistributeLockRedissonConfig distributeLockRedissonConfig,
                                              RedissonLockFactory redissonLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
-        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockRedissonConfig.getDuration(), 120L));
-        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockRedissonConfig.getMaxSize(), 1000L));
+        localLockCacheConfig.setDuration(distributeLockRedissonConfig.getDuration() == null ? 120L : distributeLockRedissonConfig.getDuration());
+        localLockCacheConfig.setMaximumSize(distributeLockRedissonConfig.getMaxSize() == null ? 1000L : distributeLockRedissonConfig.getMaxSize());
         return new NormalLock(localLockCacheConfig, redissonLockFactory);
     }
 
@@ -51,8 +51,8 @@ public class DistributeLockRedissonAutoConfiguration {
     public ReadWriteLock localFirstRedissonReadWriteLock(DistributeLockRedissonConfig distributeLockRedissonConfig,
                                                    RedissonLockFactory redissonLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
-        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockRedissonConfig.getDuration(), 120L));
-        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockRedissonConfig.getMaxSize(), 1000L));
+        localLockCacheConfig.setDuration(distributeLockRedissonConfig.getDuration() == null ? 120L : distributeLockRedissonConfig.getDuration());
+        localLockCacheConfig.setMaximumSize(distributeLockRedissonConfig.getMaxSize() == null ? 1000L : distributeLockRedissonConfig.getMaxSize());
         return new ReadWriteLock(localLockCacheConfig, redissonLockFactory);
     }
 
@@ -62,8 +62,8 @@ public class DistributeLockRedissonAutoConfiguration {
     public SimpleLock localFirstRedissonSimpleLock(DistributeLockRedissonConfig distributeLockRedissonConfig,
                                                       RedissonLockFactory redissonLockFactory) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
-        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockRedissonConfig.getDuration(), 120L));
-        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockRedissonConfig.getMaxSize(), 1000L));
+        localLockCacheConfig.setDuration(distributeLockRedissonConfig.getDuration() == null ? 120L : distributeLockRedissonConfig.getDuration());
+        localLockCacheConfig.setMaximumSize(distributeLockRedissonConfig.getMaxSize() == null ? 1000L : distributeLockRedissonConfig.getMaxSize());
         return new SimpleLock(localLockCacheConfig, redissonLockFactory);
     }
 }

@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.evanmi</groupId>
         <artifactId>distribute-lock-examples</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.2-jdk8</version>
     </parent>
 
     <artifactId>db-springboot-starter-example</artifactId>
@@ -38,8 +38,8 @@
     </developers>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>io.github.evanmi</groupId>
             <artifactId>distribute-lock-db-springboot-starter</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.2-jdk8</version>
         </dependency>
 
         <dependency>
@@ -60,10 +60,22 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- SLF4J API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.32</version>
+        </dependency>
 
+        <!-- Logback Classic (SLF4J Implementation) -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.10</version>
+        </dependency>
     </dependencies>
 </project>

@@ -2,12 +2,12 @@ package io.github.evanmi.db.springboot.starter.example.service;
 
 
 import io.github.evanmi.distribute.lock.core.NormalLock;
-import jakarta.annotation.PreDestroy;
-import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import java.util.Optional;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;

@@ -57,8 +57,8 @@ public class DistributeLockZkAutoConfiguration {
 
     private static LocalLockCacheConfig getLocalLockCacheConfig(DistributeLockZkConfig distributeLockZkConfig) {
         LocalLockCacheConfig localLockCacheConfig = new LocalLockCacheConfig();
-        localLockCacheConfig.setDuration(Objects.requireNonNullElse(distributeLockZkConfig.getDuration(), 120L));
-        localLockCacheConfig.setMaximumSize(Objects.requireNonNullElse(distributeLockZkConfig.getMaxSize(), 1000L));
+        localLockCacheConfig.setDuration(distributeLockZkConfig.getDuration() == null ? 120L : distributeLockZkConfig.getDuration());
+        localLockCacheConfig.setMaximumSize(distributeLockZkConfig.getMaxSize() == null ? 1000L : distributeLockZkConfig.getMaxSize());
         return localLockCacheConfig;
     }
 }

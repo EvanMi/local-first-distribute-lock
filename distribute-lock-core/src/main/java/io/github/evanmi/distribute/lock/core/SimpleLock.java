@@ -8,15 +8,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * In some scenarios, we don't need very complex locks.<br/>
- * Specifically, sometimes when obtaining a lock fails, a failure can be immediately returned without any waiting. <br/>
- * In Java, there is a corresponding tryLock method, and many distributed lock implementations mostly <br/>
+ * In some scenarios, we don't need very complex locks.
+ * Specifically, sometimes when obtaining a lock fails, a failure can be immediately returned without any waiting. 
+ * In Java, there is a corresponding tryLock method, and many distributed lock implementations mostly 
  * implement the tryLock (long timeout, TimeUnit unit) semantics.
- * To support waiting, the watch is used in zk, <br/>
+ * To support waiting, the watch is used in zk, 
  * and the event listening is used in Redisson.
- * The most resource consuming way is to continuously loop locally. <br/>
+ * The most resource consuming way is to continuously loop locally. 
  * The semantics of SimpleLock are based on the semantics of tryLock.
- * Now that the local tryLock is successful, <br/>
+ * Now that the local tryLock is successful, 
  * then perform tryLock on the distributed lock.
  */
 public class SimpleLock extends AbstractLock<ReentrantLock>{

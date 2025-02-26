@@ -28,3 +28,7 @@ This combination provides the following capabilities:
 This combination provides the following capabilities:
 ### spinLock
 ### simpleLock
+
+```html
+maven url: https://central.sonatype.com
+```
